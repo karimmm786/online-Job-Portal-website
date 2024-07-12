@@ -1,0 +1,63 @@
+{% load static %}
+{% block body%}
+{% include 'navigation.html'%}
+
+<marquee style =" font-family: 'Monotype Corsiva ';font-size : 25px ; color : darkcyan ; font-weight : bold ;  background-color : black ">
+User Login
+</marquee>
+<hr>
+<form class ="container mt-5" method ="post">
+    {% csrf_token %}
+    <label>
+       <b> Email ID</b>
+    </label>
+    <input type ="email" class ="form-control" name="uname" placeholder="Enter Email ID">
+
+     <label>
+       <b> Password </b>
+    </label>
+    <input type ="text" class ="form-control" name="pwd" placeholder="Enter Password">
+<div class="captcha-container">
+            <!-- Updated id from loginCaptchaImage to captchaImage -->
+            <img id="captchaImage" src="" alt="CAPTCHA">
+            <span class="glyphicon glyphicon-refresh refresh-icon" onclick="refreshCaptcha('captchaImage', 'loginCaptchaInput')"></span>
+            <input type="text" id="loginCaptchaInput" name="loginCaptchaInput" placeholder="Enter CAPTCHA" required>
+          </div>
+
+          <script>
+              function refreshCaptcha(imageId, inputId) {
+                  var captchaImage = document.getElementById(imageId);
+                  var randomString = Math.random().toString(36).substring(7);
+                  var captchaSrc = "https://dummyimage.com/120x40/000/fff&text=" + randomString;
+
+                  captchaImage.src = captchaSrc;
+                  document.getElementById(inputId).value = ""; // Clear the previous input
+              }
+
+              // Trigger the captcha refresh on page load
+              window.onload = function () {
+                  refreshCaptcha('captchaImage', 'loginCaptchaInput');
+              };
+          </script>
+    <input type="submit"  value= "Login" class ="btn btn-primary" style="margin-top:2% ; font-size:17px">
+<a href="{% url 'user_signup'%}"   class ="btn btn-primary" style="margin-top:2% ; font-size:17px"  > CREATE AN ACCOUNT </a>
+
+</form>
+
+{% if error == "no" %}
+<script>
+    alert("Login Successful");
+    window.location.href = "{% url 'user_home' %}";
+</script>
+{% endif %}
+
+{% if error == "yes" %}
+<script>
+    alert("Invalid login credentials, Try Again...");
+</script>
+{% endif %}
+
+
+
+{% endblock%}
+

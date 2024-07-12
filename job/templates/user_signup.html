@@ -1,0 +1,103 @@
+{% load static %}
+{% block body %}
+{% include 'navigation.html' %}
+<script>
+    function checkpass() {
+        // Check if password and confirm password match
+        if (document.signup.pwd.value != document.signup.cpwd.value) {
+            alert('Password and Confirm Password does not match');
+            document.signup.cpwd.focus();
+            return false;
+        }
+
+        // Check if email contains '@'
+        var email = document.signup.email.value;
+        if (email.indexOf('@') == -1) {
+            alert('Email should contain "@"');
+            document.signup.email.focus();
+            return false;
+        }
+
+        // Check if contact number contains exactly 10 digits
+        var contact = document.signup.contact.value;
+        if (contact.length != 10 || isNaN(contact)) {
+            alert('Contact number should contain exactly 10 digits');
+            document.signup.contact.focus();
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
+<marquee style="font-family: 'Monotype Corsiva'; font-size: 25px; color: darkcyan; font-weight: bold; background-color: black">
+    User SignUp
+</marquee>
+<hr>
+<form class="container mt-5" onsubmit =" return checkpass();" name="signup" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>First Name</label>
+            <input type="text" class="form-control" name="fname" placeholder="Enter First Name"required>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Last Name</label>
+            <input type="text" class="form-control" name="lname" placeholder="Enter Last Name"required>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label>Contact</label>
+            <input type="text" class="form-control" name="contact" placeholder="Enter Contact No."required>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label>Email</label>
+            <input type="text" class="form-control" name="email" placeholder="Enter Email"required>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Gender</label>
+            <div style="border: 1px solid lightgray; padding: 5px; border-radius: 6px">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline1" name="gender" class="custom-control-input" value="Male">
+                    <label class="custom-control-label" for="customRadioInline1">Male</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline2" name="gender" class="custom-control-input" value="Female">
+                    <label class="custom-control-label" for="customRadioInline2">Female</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Password</label>
+            <input type="password" class="form-control" name="pwd" placeholder="Enter Password"required>
+            <label>Confirm Password</label>
+            <input type="password" class="form-control" name="cpwd" placeholder="Enter Password Again"required>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Image</label>
+            <input type="file" class="form-control" name="image">
+        </div>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary my-3" style="width: 200px">
+</form>
+{% if error == "no" %}
+<script>
+    alert("Signup Successful");
+    window.location.href = "{% url 'user_login' %}";
+</script>
+{% endif%}
+
+{% if error == "yes" %}
+<script>
+    alert("Something went wrong, Try again...");
+</script>
+{% endif %}
+
+{% endblock  %}

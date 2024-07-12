@@ -1,0 +1,41 @@
+{% load static %}
+{% block body%}
+{% include 'admin_navigation.html'%}
+<marquee style =" font-family: 'Monotype Corsiva ';font-size : 25px ; color : darkcyan ; font-weight : bold ;  background-color : black ">
+View Recruiter-Pending
+</marquee>
+<hr>
+<form class ="container mt-5" method ="post">
+    {% csrf_token %}
+    <label>
+       <b> Recruiter Name </b>
+    </label>
+    <input type ="text" class ="form-control" name="uname" value="{{ recruiter.user.first_name}} {{ recruiter.user.last_name}}">
+
+     <label>
+       <b> Status </b>
+    </label>
+    <select class ="form-control" name="status" >
+        <option value ="Accept"> Accept</option>
+         <option value ="Reject"> Reject</option>
+    </select>
+
+    <input type="submit" class ="btn btn-primary" style="margin-top:2% ; font-size:17px">
+
+
+</form>
+{% if error == "no" %}
+<script>
+    alert("Status changed successfully");
+    window.location.href = "{% url 'recruiter_all' %}";
+</script>
+{% endif %}
+
+{% if error == "yes" %}
+<script>
+    alert("Something went wrong, Try Again..");
+</script>
+{% endif %}
+
+
+{% endblock %}

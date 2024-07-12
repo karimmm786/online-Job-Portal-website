@@ -1,0 +1,140 @@
+{% load static %}
+{% block body %}
+{% include 'Navigation.html' %}
+<html>
+<head>
+<style>
+    .container{
+    max-width: 90%
+
+    }
+.content{
+    text-align:left;
+    position:absolute;
+    bottom:0;
+    #background:rgba(0,0,0.5);
+    color:cyan
+    height : 30px;
+    width:91%;
+    }
+ .slideshow-container {
+  max-width: 500px;
+  position: relative;
+  margin: auto;
+}
+
+.mySlides {
+  display: none;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+</style>
+</head>
+<body>
+  <div class="slideshow-container">
+  <div class="mySlides">
+    <img src= "{%static 'images/h3.png'%}" alt="Image 1">
+  </div>
+
+  <div class="mySlides">
+    <img src="{%static 'images/h5.png'%}" alt="Image 2">
+  </div>
+
+  <div class="mySlides">
+    <img src="{%static 'images/h6.png'%}" alt="Image 3">
+  </div>
+      <div class="mySlides">
+    <img src="{%static 'images/h1.jpeg'%}" alt="Image 3">
+  </div>
+
+
+</div>
+<div class ="container" style ="background-color:white;height:570px;color: LightSlateGray ; margin-top:2%">
+<h1 class ="text-center text-yellow">Our Top Companies</h1>
+<div>
+
+<div class="row">
+    <div class ="col-md-3">
+        <img src="{%static 'images/walmart.png'%}" style ="width=100%; margin-top:5%;height : 200px; border-radius:50%" >
+        <div class ="content " >
+            <p> Walmart</p>
+    </div>
+
+
+</div>
+ <div class ="col-md-3">
+        <img src="{%static 'images/tata.jpeg'%}" style ="width=100%; margin-top:5%;height : 200px; border-radius:50%" >
+        <div class ="content " >
+            <p> TATA</p>
+    </div>
+ </div>
+
+
+      <div class ="col-md-3">
+        <img src="{%static 'images/slack.png'%}" style ="width=100%; margin-top:5%;height : 200px; border-radius:50%" >
+        <div class ="content " >
+            <p> slacks</p>
+    </div>
+      </div>
+
+
+           <div class ="col-md-3">
+        <img src="{%static 'images/navidia.jpeg'%}" style ="width=100%; margin-top:5%;height : 200px; border-radius:50%" >
+        <div class ="content " >
+            <p> Navidia</p>
+    </div>
+           </div>
+
+<script>
+let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}
+  slides[slideIndex-1].style.display = "block";
+  setTimeout(showSlides, 2000); // Change image every 2 seconds
+}
+</script>
+  <div class="container">
+  <h2>User Feedback</h2>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">John Doe</h5>
+          <img src="{%static 'images/h3.png'%}" alt="John Doe" style="width: 100px; height: 100px;">
+          <p class="card-text">I got my dream job through this app. Highly recommended!</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Jane Smith</h5>
+          <img src="{%static 'images/h5.png'%}" alt="Jane Smith" style="width: 100px; height: 100px;">
+          <p class="card-text">Thanks to this app, I got promoted within a month. Amazing platform!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
+
+<br>
+<br>
+{% include 'footer.html' %}
+
+{% endblock %}
